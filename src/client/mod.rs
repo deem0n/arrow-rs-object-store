@@ -646,6 +646,8 @@ impl ClientOptions {
     pub(crate) fn client(&self) -> Result<reqwest::Client> {
         let mut builder = reqwest::ClientBuilder::new();
 
+        builder = builder.redirect(reqwest::redirect::Policy::default());
+
         match &self.user_agent {
             Some(user_agent) => builder = builder.user_agent(user_agent.get()?),
             None => builder = builder.user_agent(DEFAULT_USER_AGENT),
