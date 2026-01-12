@@ -386,7 +386,7 @@ impl RetryableRequest {
                         }
                     } else if status == StatusCode::NOT_MODIFIED {
                         return Err(self.err(RequestError::Status { status, body: None }, ctx));
-                    } else if status.is_redirection() {
+                    } /*else if status.is_redirection() {
                         let is_bare_redirect = !r.headers().contains_key(LOCATION);
                         return match is_bare_redirect {
                             true => Err(self.err(RequestError::BareRedirect, ctx)),
@@ -398,7 +398,7 @@ impl RetryableRequest {
                                 ctx,
                             )),
                         };
-                    } else {
+                    }*/ else {
                         let status = r.status();
                         if ctx.exhausted()
                             || !(status.is_server_error()
