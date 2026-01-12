@@ -645,6 +645,8 @@ impl ClientOptions {
     #[cfg(not(target_arch = "wasm32"))]
     pub(crate) fn client(&self) -> Result<reqwest::Client> {
         let mut builder = reqwest::ClientBuilder::new();
+        
+        builder = builder.redirect(reqwest::redirect::Policy::default());
 
         match &self.user_agent {
             Some(user_agent) => builder = builder.user_agent(user_agent.get()?),
